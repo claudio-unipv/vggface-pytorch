@@ -1,10 +1,9 @@
 import torch
 import torch.nn.functional as F
-import torchvision
+import torch.utils.model_zoo
 
 
-MODEL_URL = "vggface-9d491dd7c30312.pth"
-
+MODEL_URL = "file:///home/cusano/.torch.models/vggface-9d491dd7c30312.pth"
 
 # It was 93.5940, 104.7624, 129.1863 before dividing by 255
 MEAN_RGB = [
@@ -22,7 +21,8 @@ def vggface(pretrained=False, **kwargs):
     """
     model = VggFace(**kwargs)
     if pretrained:
-        model.load_state_dict(model_zoo.load_url(MODEL_URL))
+        state = torch.utils.model_zoo.load_url(MODEL_URL)
+        model.load_state_dict(state)
     return model
 
 
@@ -90,6 +90,7 @@ class _ConvBlock(torch.nn.Module):
     
 
 def _test_image(net, names, im):
+    import torchvision
     tr = torchvision.transforms.Compose([
         torchvision.transforms.Resize((224, 224)),
         torchvision.transforms.ToTensor(),
