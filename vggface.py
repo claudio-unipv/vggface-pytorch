@@ -111,11 +111,13 @@ def _test():
     import sys
     from PIL import Image
     net = vggface(True)
+    net.eval()
     names = open("names.txt").read().split()
-    for path in sys.argv[1:]:
-        print(path)
-        _test_image(net, names, Image.open(path))
-        print()
+    with torch.no_grad():
+        for path in sys.argv[1:]:
+            print(path)
+            _test_image(net, names, Image.open(path))
+            print()
         
 
 if __name__ == "__main__":
