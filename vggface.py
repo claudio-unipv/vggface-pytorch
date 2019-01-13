@@ -3,7 +3,8 @@ import torch.nn.functional as F
 import torch.utils.model_zoo
 
 
-MODEL_URL = "file:///home/cusano/.torch.models/vggface-9d491dd7c30312.pth"
+MODEL_URL = "https://github.com/claudio-unipv/vggface-pytorch/releases/download/v0.1/vggface-9d491dd7c30312.pth"
+
 
 # It was 93.5940, 104.7624, 129.1863 before dividing by 255
 MEAN_RGB = [
